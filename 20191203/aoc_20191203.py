@@ -1,3 +1,9 @@
+# --- Day 3: Crossed Wires ---
+#
+#   Part 1: Manhattan distance from origin to nearest intersection of two wires
+#   Part 2: Shortest distance along wires (combined) to reach the first intersection
+#
+
 import math
 import time
 

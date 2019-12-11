@@ -1,3 +1,9 @@
+# --- Day 9: Sensor Boost ---
+#
+#   Part 1: Add relative mode and dynamic memory allocation to IntCode computer
+#   Part 2: Run program
+#
+
 import threading, time
 
 OPCODE_HALT = 99

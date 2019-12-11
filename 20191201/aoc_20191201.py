@@ -1,3 +1,9 @@
+# --- Day 1: The Tyranny of the Rocket Equation ---
+#
+#   Part 1: Fuel total for all modules in the list
+#   Part 2: Fuel total for all modules and all fuel, recursively
+#
+
 import math
 
 class ElfModule():

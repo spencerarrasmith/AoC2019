@@ -1,3 +1,9 @@
+# --- Day 5: Sunny with a Chance of Asteroids ---
+#
+#   Part 1: Expand IntCode computer with in/out and parameter modes
+#   Part 2: Add jumps and comparisons
+#
+
 OPCODE_HALT = 99
 OPCODE_ADD = 1
 OPCODE_MULTIPLY = 2

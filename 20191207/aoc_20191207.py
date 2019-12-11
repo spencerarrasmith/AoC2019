@@ -1,3 +1,9 @@
+# --- Day 7: Amplification Circuit ---
+#
+#   Part 1: Find largest signal produced by 5 chained IntCode computers with permutation inputs
+#   Part 2: Find largest signal produced by feedback loop
+#
+
 import threading, time
 
 OPCODE_HALT = 99

@@ -1,3 +1,9 @@
+# --- Day 11: Space Police ---
+#
+#   Part 1: Control painting and movement of robot with IntCode computer
+#   Part 2: Read text painted by robot
+#
+
 import threading, time
 from PIL import Image
 

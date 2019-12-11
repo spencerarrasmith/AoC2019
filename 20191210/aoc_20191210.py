@@ -1,3 +1,10 @@
+# --- Day 10: Monitoring Station ---
+#
+#   Part 1: Find location where fewest asteroids are occluded by others
+#   Part 2: Blast asteroids with lasers in clockwise sweeps
+#
+
+
 f = open("input.txt", 'r')
 mainmap = f.read().lstrip().rstrip()
 f.close()

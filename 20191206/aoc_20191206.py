@@ -1,3 +1,10 @@
+# --- Day 6: Universal Orbit Map ---
+#
+#   Part 1: Build tree of objects orbiting one another
+#   Part 2: Find number of jumps between orbits from YOU to SANta
+#
+
+
 f = open("input.txt", 'r')
 txt = f.read()
 f.close()

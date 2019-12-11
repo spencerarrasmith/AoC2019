@@ -1,3 +1,9 @@
+# --- Day 2: 1202 Program Alarm ---
+#
+#   Part 1: Build a simple IntCode computer
+#   Part 2: Find the inputs which give a certain output
+#
+
 OPCODE_HALT = 99
 OPCODE_ADD = 1
 OPCODE_MULTIPLY = 2

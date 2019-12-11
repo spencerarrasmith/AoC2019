@@ -1,3 +1,10 @@
+# --- Day 4: Secure Container ---
+#
+#   Part 1: Find number of possible 6-digit passwords given restrictions
+#   Part 2: Shortest distance along wires (combined) to reach the first intersection
+#
+
+
 import time
 
 starttime = time.time()

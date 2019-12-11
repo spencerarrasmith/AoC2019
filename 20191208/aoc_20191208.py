@@ -1,3 +1,9 @@
+# --- Day 8: Space Image Format ---
+#
+#   Part 1: Count data on a layer of the image
+#   Part 2: Output an image by collapsing the layers
+#
+
 IMAGEX = 25
 IMAGEY = 6
 
