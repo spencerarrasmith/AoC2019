@@ -4,25 +4,27 @@
 #   Part 2: Read text painted by robot
 #
 
+import time
+
 names = ["Io", "Europa", "Ganymede", "Callisto"]
 
 f = open("input.txt", 'r')
 inputs = f.read().strip().split('\n')
 f.close()
 
-# test1 = """
-# <x=-1, y=0, z=2>
-# <x=2, y=-10, z=-7>
-# <x=4, y=-8, z=8>
-# <x=3, y=5, z=-1>
-# """.strip().split('\n')
-#
-# test2 = """
-# <x=-8, y=-10, z=0>
-# <x=5, y=5, z=10>
-# <x=2, y=-7, z=3>
-# <x=9, y=-8, z=-3>
-# """.strip().split('\n')
+test1 = """
+<x=-1, y=0, z=2>
+<x=2, y=-10, z=-7>
+<x=4, y=-8, z=8>
+<x=3, y=5, z=-1>
+""".strip().split('\n')
+
+test2 = """
+<x=-8, y=-10, z=0>
+<x=5, y=5, z=10>
+<x=2, y=-7, z=3>
+<x=9, y=-8, z=-3>
+""".strip().split('\n')
 
 
 
@@ -71,6 +73,8 @@ class Moon():
         self.vel = Vector(0,0,0)
         self.loc = loc
 
+        self.initialstate = [self.loc.copy(), self.vel.copy()]
+
         self.pe = self.loc.e
         self.ke = 0
         self.te = 0
@@ -113,4 +117,38 @@ def part1(inputs):
 
     print(Moons[0].te + Moons[1].te + Moons[2].te + Moons[3].te)
 
-part1(inputs)
+#part1(inputs)
+
+def part2(inputs):
+    inputs = [x[1:-1].split(',') for x in inputs]
+    for i, line in enumerate(inputs):
+        inputs[i] = [int(elt.split('=')[1]) for elt in line]
+    #print(inputs)
+
+    Moons = []
+    initialstate = []
+
+    for i, name in enumerate(names):
+        Moons.append(Moon(name=name, loc=Vector(inputs[i][0], inputs[i][1], inputs[i][2])))
+        initialstate.append(Moons[i].loc.copy())
+        initialstate.append(Moons[i].vel.copy())
+
+    print(initialstate)
+
+    numsteps = 0
+    currentstate = []
+
+    while currentstate != initialstate:
+        numsteps += 1
+        currentstate = []
+        for moon in Moons:
+            moon.gravitate(Moons)
+        for moon in Moons:
+            moon.velocitate()
+            currentstate.append(moon.loc)
+            currentstate.append(moon.vel)
+
+    print("")
+    print("Steps: ", numsteps)
+
+part2(test2)
