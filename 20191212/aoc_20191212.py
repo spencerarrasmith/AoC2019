@@ -79,21 +79,58 @@ class Moon():
         self.ke = 0
         self.te = 0
 
-    def gravitate(self, moons=[]):
+    def gravitate(self, moons=[], axis=3):
         for moon in moons:
             if moon != self:
-                for i,element in enumerate(moon.loc):
-                    if element > self.loc[i]:
-                        self.vel[i] += 1
-                    elif element < self.loc[i]:
-                        self.vel[i] -= 1
+                if axis >= 3:   # All axes
+                    for i,element in enumerate(moon.loc):
+                        if element > self.loc[i]:
+                            self.vel[i] += 1
+                        elif element < self.loc[i]:
+                            self.vel[i] -= 1
+                else:   # Just the one axis
+                    if moon.loc[axis] > self.loc[axis]:
+                        self.vel[axis] += 1
+                    elif moon.loc[axis] < self.loc[axis]:
+                        self.vel[axis] -= 1
 
-    def velocitate(self):
-        for i, element in enumerate(self.vel):
-            self.loc[i] += element
-        self.pe = self.loc.e
-        self.ke = self.vel.e
-        self.te = self.pe * self.ke
+    def velocitate(self, axis=3):
+        if axis == 3:   # All axes
+            for i, element in enumerate(self.vel):
+                self.loc[i] += element
+            self.pe = self.loc.e
+            self.ke = self.vel.e
+            self.te = self.pe * self.ke
+        else:   # Just the one axis
+            self.loc[axis] += self.vel[axis]
+
+
+def primeFactorize(num):
+    current = num
+    currentprime = 2
+    factorization = []
+    while current > 1:
+        if currentprime > current/2:
+            factorization.append(int(current))
+            break
+        if current % currentprime == 0:
+            factorization.append(int(currentprime))
+            current /= currentprime
+            continue
+        else:
+            currentprime += 1
+            while not isPrime(currentprime):
+                currentprime += 1
+    return factorization
+
+def isPrime(num):
+    for i in range(2,int(num+1/2)):
+        if num % i == 0:
+            return False
+    return True
+
+#print(primeFactorize(4702))
+
 
 def part1(inputs):
     inputs = [x[1:-1].split(',') for x in inputs]
@@ -126,29 +163,62 @@ def part2(inputs):
     #print(inputs)
 
     Moons = []
-    initialstate = []
+
 
     for i, name in enumerate(names):
         Moons.append(Moon(name=name, loc=Vector(inputs[i][0], inputs[i][1], inputs[i][2])))
-        initialstate.append(Moons[i].loc.copy())
-        initialstate.append(Moons[i].vel.copy())
 
-    print(initialstate)
+    looptimes = []
 
-    numsteps = 0
-    currentstate = []
+    for axis in range(3):
+        initialstate = []
 
-    while currentstate != initialstate:
-        numsteps += 1
+        currentaxis = axis
+
+        for moon in Moons:
+            initialstate.append(moon.loc[currentaxis])
+            initialstate.append(moon.vel[currentaxis])
+
+        print(initialstate)
+
+        numsteps = 0
         currentstate = []
-        for moon in Moons:
-            moon.gravitate(Moons)
-        for moon in Moons:
-            moon.velocitate()
-            currentstate.append(moon.loc)
-            currentstate.append(moon.vel)
 
-    print("")
-    print("Steps: ", numsteps)
+        while currentstate != initialstate:
+            numsteps += 1
+            currentstate = []
+            for moon in Moons:
+                moon.gravitate(Moons, axis=currentaxis)
+            for moon in Moons:
+                moon.velocitate(axis=currentaxis)
+                currentstate.append(moon.loc[currentaxis])
+                currentstate.append(moon.vel[currentaxis])
 
-part2(test2)
+
+        print("Axis ", currentaxis, "Steps: ", numsteps)
+        print("")
+        looptimes.append(numsteps)
+
+    primefactors = []
+    for i in looptimes:
+        primefactors.append(primeFactorize(i))
+
+    lcmfactors = {}
+    for factorlist in primefactors:
+        for factor in set(factorlist):
+            if factor not in lcmfactors.keys():
+                lcmfactors[factor] = factorlist.count(factor)
+            else:
+                if lcmfactors[factor] < factorlist.count(factor):
+                    lcmfactors[factor] = factorlist.count(factor)
+
+    print(lcmfactors)
+
+    lcm = 1
+    for i in lcmfactors.keys():
+        lcm *= i**lcmfactors[i]
+
+    print(lcm)
+
+
+part2(inputs)
