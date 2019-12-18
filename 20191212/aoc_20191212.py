@@ -6,6 +6,8 @@
 
 import time
 
+starttime = time.time()
+
 names = ["Io", "Europa", "Ganymede", "Callisto"]
 
 f = open("input.txt", 'r')
@@ -154,7 +156,7 @@ def part1(inputs):
 
     print(Moons[0].te + Moons[1].te + Moons[2].te + Moons[3].te)
 
-#part1(inputs)
+part1(inputs)
 
 def part2(inputs):
     inputs = [x[1:-1].split(',') for x in inputs]
@@ -222,3 +224,5 @@ def part2(inputs):
 
 
 part2(inputs)
+
+print(time.time() - starttime)
